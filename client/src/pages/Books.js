@@ -48,7 +48,7 @@ class Books extends Component {
         </Card>
         {this.state.books.items && this.state.books.items.map((book) => (
           <Card>
-            {book.volumeInfo.imageLinks.smallThumbnail}
+          <img alt={book.volumeInfo.title} src={book.volumeInfo.imageLinks.smallThumbnail} />
             <h2>{book.volumeInfo.title}</h2>
             <p>{book.volumeInfo.authors}</p>
             <p>{book.volumeInfo.description}</p>
