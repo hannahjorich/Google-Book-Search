@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import API from "../utils/API";
 import Card from "../components/Card";
 import Form from "../components/Form";
+import Jumbotron from "../components/Jumbotron/index";
+import Nav from "../components/Nav/index";
 
 class Books extends Component {
   state = {
@@ -38,6 +40,8 @@ class Books extends Component {
   render() {
     return (
       <div>
+        <Nav />
+        <Jumbotron />
         <Card>
           <Form
             handleInputChange={this.handleInputChange}
