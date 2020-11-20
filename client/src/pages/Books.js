@@ -34,8 +34,10 @@ class Books extends Component {
   };
 
   handleBookSave = (id) => {
-    const book = this.state.books.find((book) => book.id === id);
+    const book = this.state.books.items.find((book) => book.id === id);
+    console.log(book)
   };
+
 
   render() {
     return (
@@ -48,18 +50,22 @@ class Books extends Component {
             handleFormSubmit={this.handleFormSubmit}
             term={this.state.term}
           ></Form>
-          {this.state.books.items && console.log(this.state.books.items[0].volumeInfo)}
+          {this.state.books.items && console.log(this.state.books.items)}
         </Card>
         {this.state.books.items && this.state.books.items.map((book) => (
-          <Card>
+          <Card key={book.volumeInfo.title}
+       
+          
+          >
           <img alt={book.volumeInfo.title} src={book.volumeInfo.imageLinks.smallThumbnail} />
             <h2>{book.volumeInfo.title}</h2>
             <p>{book.volumeInfo.authors}</p>
             <p>{book.volumeInfo.description}</p>
+        <button onClick={this.handleBookSave(book.volumeInfo.id)}>Save Book</button>
           </Card>
         ))}
       </div>
-    );
+    )
   }
 }
 
