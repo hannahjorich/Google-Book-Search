@@ -11,19 +11,23 @@ class Books extends Component {
   state = {
     books: [],
     term: "",
-    Message: "Search for a book to begin",
+    message: "Search for a book to begin",
   };
   // Loads all books and sets them to books
   loadBooks = () => {
     API.getBooks(this.state.term)
       .then((res) => {
         console.log(res)
-        this.setState(prevstate => ({
-          ...prevstate,
+        this.setState({
           books: res.data.items
-        }))
+        })
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        this.setState({
+          books: [],
+          message: "No Books Found",
+         })
+      });
       
   };
 
@@ -53,27 +57,22 @@ class Books extends Component {
           <Form
             handleInputChange={this.handleInputChange}
             handleFormSubmit={this.handleFormSubmit}
-            // term={this.state.term}
+            term={this.state.term}
           ></Form>
-          {this.state.books.items && console.log(this.state.books.items)}
+          {/* {this.state.books.items && console.log(this.state.books.items)} */}
         </Card>
-        {this.state.books.map(book => {
-          return (
+        {this.state.books.map(book => (
             <div>
             <BookCard 
-              // id={book.id}
-              key={book._id}
-              img={book.volumeInfo.imageLinks.smallThumbnail}
+              key={book.id}
+              img={book.volumeInfo.imageLinks.thumbnail}
               title={book.volumeInfo.title}
               authors={book.volumeInfo.authors}
               description={book.volumeInfo.description}
-              link={book.volumeInfo.infoLink}
             />
             <button className="btn btn-primary" onClick={()=> this.handleBookSave(book.id)}>Save</button>
             </div>
-          )
-
-        })}
+        ))}
       </div>
     )
   }
