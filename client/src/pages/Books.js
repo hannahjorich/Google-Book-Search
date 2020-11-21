@@ -53,7 +53,7 @@ class Books extends Component {
           <Form
             handleInputChange={this.handleInputChange}
             handleFormSubmit={this.handleFormSubmit}
-            term={this.state.term}
+            // term={this.state.term}
           ></Form>
           {this.state.books.items && console.log(this.state.books.items)}
         </Card>
@@ -61,8 +61,8 @@ class Books extends Component {
           return (
             <div>
             <BookCard 
-              id={book.id}
-              key={book.id}
+              // id={book.id}
+              key={book._id}
               img={book.volumeInfo.imageLinks.smallThumbnail}
               title={book.volumeInfo.title}
               authors={book.volumeInfo.authors}

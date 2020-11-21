@@ -13,8 +13,8 @@ class Saved extends Component {
 }
 bookApi(){
     axios.get("/api/books")
-        .then((response) => {
-           return this.setState({ books: response.data })});
+        .then((res) => {
+           return this.setState({ books: res.data })});
 }
 
 handleButtonClick = (id) => {
@@ -27,8 +27,8 @@ handleButtonClick = (id) => {
           <div>
             <Nav />
             <BookCard 
-              id={book.id}
-              key={book.id}
+              // id={book.id}
+              key={book._id}
               img={book.volumeInfo.imageLinks.smallThumbnail}
               title={book.volumeInfo.title}
               authors={book.volumeInfo.authors}
