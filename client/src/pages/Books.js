@@ -63,13 +63,13 @@ class Books extends Component {
             <BookCard 
               id={book.id}
               key={book.id}
-              title={book.volumeInfo.title}
-              // authors={book.volumeInfo.authors.join(" , ")}
-              description={book.volumeInfo.description}
               img={book.volumeInfo.imageLinks.smallThumbnail}
+              title={book.volumeInfo.title}
+              authors={book.volumeInfo.authors}
+              description={book.volumeInfo.description}
               link={book.volumeInfo.infoLink}
             />
-            <button onClick={()=> this.handleBookSave(book.id)}>Save</button>
+            <button className="btn btn-primary" onClick={()=> this.handleBookSave(book.id)}>Save</button>
             </div>
           )
 

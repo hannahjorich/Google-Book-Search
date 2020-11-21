@@ -1,8 +1,7 @@
 import React, { Component } from "react";
+import axios from "axios";
 import API from "../utils/API";
-import Card from "../components/Card";
-import Jumbotron from "../components/Jumbotron/index";
-import Nav from "../components/Nav/index";
+import Nav from "../components/Nav";
 
 class Saved extends Component {
   state = {
@@ -10,41 +9,35 @@ class Saved extends Component {
   };
 
   componentDidMount() {
-    this.loadBooks();
-  }
+    this.bookApi()
+}
+bookApi(){
+    axios.get("/api/books")
+        .then((response) => {
+           return this.setState({ books: response.data })});
+}
 
-  loadBooks = () => {
-    API.getBooks()
-      .then((res) => this.setState({ books: res.data }))
-      .catch((err) => console.log(err));
-  };
-
-  handleDeleteBook = (id) => {
+handleButtonClick = (id) => {
     API.deleteBook(id)
-      .then((res) => this.loadBooks())
-      .catch((err) => console.log(err));
-  };
+        .then(this.bookApi())
+}
 
   render() {
     return (
-      <div>
-        <Nav />
-        <Jumbotron />
-        {this.state.books.items &&
-          this.state.books.items.map((book) => (
-            <Card>
-              <img
-                alt={book.volumeInfo.title}
-                src={book.volumeInfo.imageLinks.smallThumbnail}
-              />
-              <h2>{book.volumeInfo.title}</h2>
-              <p>{book.volumeInfo.authors}</p>
-              <p>{book.volumeInfo.description}</p>
-            </Card>
-          ))}
-      </div>
-    );
+          <div>
+            <Nav />
+            <BookCard 
+              id={book.id}
+              key={book.id}
+              img={book.volumeInfo.imageLinks.smallThumbnail}
+              title={book.volumeInfo.title}
+              authors={book.volumeInfo.authors}
+              description={book.volumeInfo.description}
+              link={book.volumeInfo.infoLink}
+            />
+            <button onClick={()=> this.handleButtonClick(book.id)}>Delete</button>
+          </div>
+      )
+    }
   }
-}
-
 export default Saved;
